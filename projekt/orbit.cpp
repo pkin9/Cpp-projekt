@@ -25,21 +25,18 @@ double Distance(std::string name, double Semi_Major_Axis_AU, double Semi_Minor_A
     return Distance;
 }
 
-Orbit::Orbit(double Semi_Major_Axis, double Eccentricity, double Mass) {
+Orbit::Orbit(double Semi_Major_Axis, double Eccentricity) {
 
     double Semi_Minor_Axis_AU, Semi_Minor_Axis; //a.u., km
     double Distance_In_Apoapsis_AU, Distance_In_Apoapsis; //a.u., km
     double Distance_In_Perapsis_AU, Distance_In_Perapsis; //a.u., km
     double Mass_of_Sun = 1.989E30; //kg
-    double Standard_Gravitational_Parameter;  // km ^ 3 / s^2
     double Gravitational_Constant = 6.674E-11; //m^3 /kg * s^2
-    
+    double Standard_Gravitational_Parameter = Gravitational_Constant * Mass_of_Sun * 1E-9;;  // km ^ 3 / s^2
     double Semi_Major_Axis_AU = Semi_Major_Axis/149597871; //a.u.
     
-
     Semi_Minor_Axis_AU = Semi_Major_Axis_AU * std::pow(1 - (Eccentricity * Eccentricity), 0.5); //a.u.
     Semi_Minor_Axis = Semi_Major_Axis_AU * 149597871; //km
-    Standard_Gravitational_Parameter = Gravitational_Constant * (Mass + Mass_of_Sun) * 1E-9; 
 
     std::cout << "Semi major axis: " << Semi_Major_Axis << " km = " << Semi_Major_Axis_AU << " a.u.\n"
         <<"Semi minor axis: " << Semi_Minor_Axis_AU * 149597871  << " km = " << Semi_Minor_Axis_AU << " a.u.\n" 
