@@ -3,7 +3,6 @@
 #include "orbit.hpp"
 
 int main() {
-    //Object sun("Sun", 1.989E30, 695510E3, 0, 0); 
     char option;
 
     std::cout << "Options: \nm - Mercury\nv - Venus\ne - Earth\na - Mars\nj - Jupiter\ns - Saturn\nu - Uranus\nn - Neptune\np - Pluto \n";
