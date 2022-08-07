@@ -8,9 +8,21 @@ void Velocity(double Standard_Gravitational_Parameter, double Distance, double S
     std::cout << "Velocity: " << Velocity << " km/s\n";
 }
 
-void Distance(std::string name, double Distance, double Distance_AU) {
+double Distance(std::string name, double Semi_Major_Axis_AU, double Semi_Minor_Axis_AU) {
+        double Distance, Distance_AU;
+        if (name == "Perapsis") {
+            Distance_AU = Semi_Major_Axis_AU - std::pow(Semi_Major_Axis_AU * Semi_Major_Axis_AU - Semi_Minor_Axis_AU * Semi_Minor_Axis_AU, 0.5);
+            Distance = Distance_AU * 149597871;
+        }
+        else if (name == "Apoapsis") {
+            Distance_AU = Semi_Major_Axis_AU + std::pow(Semi_Major_Axis_AU * Semi_Major_Axis_AU - Semi_Minor_Axis_AU * Semi_Minor_Axis_AU, 0.5);
+            Distance = Distance_AU * 149597871;
+        }
+    
     std::cout << name << ": \n";
     std::cout << "Distance between the star (Sun) and Object: " << Distance << " km = " << Distance_AU << " a.u."<< std::endl;
+    
+    return Distance;
 }
 
 Orbit::Orbit(double Semi_Major_Axis, double Eccentricity, double Mass) {
@@ -34,14 +46,11 @@ Orbit::Orbit(double Semi_Major_Axis, double Eccentricity, double Mass) {
         << "Eccentricity: " << Eccentricity << std::endl
         << "Standard gravitational parameter: " << Standard_Gravitational_Parameter << " km^3/s^2\n" << std::endl;
     
-    Distance_In_Perapsis_AU = Semi_Major_Axis_AU - std::pow(Semi_Major_Axis_AU * Semi_Major_Axis_AU - Semi_Minor_Axis_AU * Semi_Minor_Axis_AU, 0.5);
-    Distance_In_Perapsis = Distance_In_Perapsis_AU * 149597871;
-    Distance("Perapsis", Distance_In_Perapsis, Distance_In_Perapsis_AU);
+    Distance_In_Perapsis = Distance("Perapsis", Semi_Major_Axis_AU, Semi_Minor_Axis_AU);
     Velocity(Standard_Gravitational_Parameter, Distance_In_Perapsis, Semi_Minor_Axis);
        
-    Distance_In_Apoapsis_AU = Semi_Major_Axis_AU + std::pow(Semi_Major_Axis_AU * Semi_Major_Axis_AU - Semi_Minor_Axis_AU * Semi_Minor_Axis_AU, 0.5);
-    Distance_In_Apoapsis = Distance_In_Apoapsis_AU * 149597871;
-    Distance("Apoapsis", Distance_In_Apoapsis, Distance_In_Apoapsis_AU);
+    Distance_In_Apoapsis = Distance("Apoapsis", Semi_Major_Axis_AU, Semi_Minor_Axis_AU);
     Velocity(Standard_Gravitational_Parameter, Distance_In_Apoapsis, Semi_Major_Axis);
+     
     
 };
